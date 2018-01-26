@@ -4,10 +4,20 @@ import sys
 import time
 import random
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 weapon = False
 bar = 75
 
-print '{................................Loading Game...............................}\n'
+print '\033[92m{................................Loading Game...............................}\n'
 
 sys.stdout.write("[%s]" % (" " * bar))
 sys.stdout.flush()
@@ -15,7 +25,7 @@ sys.stdout.write("\b" * (bar+1))
 
 for i in xrange(bar):
     time.sleep(0.1)
-    sys.stdout.write("=")
+    sys.stdout.write("\033[94m=\033[0m")
     sys.stdout.flush()
 sys.stdout.write("\n")
 
@@ -30,6 +40,62 @@ def dye():
 
 def school():
     print 'Scoala'
+
+def try_again():
+    prompt = '> '
+    print '\nHai Sa Mai incercam o data'
+    search2 = '.'
+    progg = 18
+    sys.stdout.write("Cautam iara.%s" % (" " * progg))
+    sys.stdout.flush()
+    sys.stdout.write("\b" * (progg+1))
+    for search2 in xrange(progg):
+        time.sleep(0.2)
+        sys.stdout.write(".")
+        sys.stdout.flush()
+    fms = random.randint(0,9)
+    print 'ai gasit iara un fms de data asta +%d' % fms
+    print '\nCe faci cu asta ?'
+    print '1. Il testezi' 
+    print '2. Pleci'
+    print '*atentie fms-ul se poate rupe blah blah blah*\n'
+    z = int(input(prompt))
+    if z == 1:
+        print 'Hai sa testam fms-ul sa vedem daca e bun'
+        test = 28
+        sys.stdout.write("Testam %s" % (" " * progg))
+        sys.stdout.flush()
+        sys.stdout.write("\b" * (progg+1))
+        for search2 in xrange(progg):
+            time.sleep(0.2)
+            sys.stdout.write("+")
+            sys.stdout.flush()
+        if fms <> 0:
+            print '\namin ca nu e +0\n'
+        if fms < 5:
+            print 'Fms-ul so spart iara , iti repet trb sa gasesti minim unu +5 ca sa reziste la bosi'
+            print 'Ce vrei sa facem acum?'
+            print '1. Mergem La Boss'    
+            print '2. Mai incercam o data'
+            wo = int(input(prompt))
+            if wo == 1:
+                time.sleep(5)
+                dungeon1_go()
+            elif wo == 2:
+                time.sleep(5)
+                try_again()
+            else:
+                print ('\033[91mERROR 404 : Invalid option')
+        if fms >= 5:
+                print 'Fms-ul asta +%d destul si rezistent cat sa bata un boss nu ca celalt' % fms
+                weapon = True
+                time.sleep(5)
+                main2()
+    elif z == 2:
+        time.sleep(5)
+        main()
+    else:
+        print ('\033[91mERROR 404 : Invalid option')
 
 def main2():
     prompt = '> '
@@ -54,7 +120,7 @@ def main2():
         time.sleep(2)
         exit(0)
     else:
-        print ('ERROR 404 : Invalid option')
+        print ('\033[91mERROR 404 : Invalid option')
 
 def dungeon():
     prompt = '> '
@@ -70,6 +136,8 @@ def dungeon():
         while True:
             damage = random.randint(623, 1600)
             damage_boss = random.randint(623, 1600)
+            damage = random.randint(623, 1600)
+            damage_boss = random.randint(623, 1600)
             time.sleep(0.5)
             print 'Vrei sa il ataci sau sa te retragi ?'
             print '1. Ataca'
@@ -77,36 +145,37 @@ def dungeon():
             ppwp = int(input(prompt))
             if ppwp == 1:
                 print 'i-ai dat %d damage' % damage
+                boss = boss - damage
                 time.sleep(0.5)
                 print 'boss-ul mai are %d viata' % boss
-                boss -= damage
+                player = player - damage_boss
+                time.sleep(0.5)
                 print 'ti-a dat %d damage' % damage_boss
                 time.sleep(0.5)
                 print 'mai ai %d viata' % player
-                player -= damage_boss
                 time.sleep(0.5)
-                if boss < 10:
-                    print 'ai infrant boss-ul'
+                if boss < 1:
+                    print 'Ai infrant boss-ul'
                     time.sleep(5)
                     main2()
-                if player < 10:
-                    print 'ai murit....'
+                if player < 1:
+                    print 'Ai murit....'
                     time.sleep(5)
                     dye()
-            elif ppwp ==2:
+            elif ppwp == 2:
                 time.sleep(5)
                 main()
             else:
-                print ('ERROR 404 : Invalid option')
+                print ('\033[91mERROR 404 : Invalid option')
 
     elif decision == 2:
         time.sleep(5)
         exit(0)
     else:
-        print ('ERROR 404 : Invalid option')
+        print ('\033[91mERROR 404 : Invalid option')
 
 def dungeon1_go():
-    print 'esti sigur ca vrei sa merem la boss?'
+    print 'Esti sigur ca vrei sa merem la boss?'
     print '1. Da'
     print '2. Ne intoarcem la meniul principal'
     go = int(input(prompt))
@@ -117,7 +186,7 @@ def dungeon1_go():
         time.sleep(5)
         main()
     else:
-        print ('ERROR 404 : Invalid option')
+        print ('\033[91mERROR 404 : Invalid option')
 
 def dungeon1():
     prompt = '> '
@@ -140,16 +209,21 @@ def dungeon1():
             ppwp = int(input(prompt))
             if ppwp == 1:
                 print 'i-ai dat %d damage' % damage
-                boss -= damage
-                print 'ti-a dat %d damage' % damage_boss
-                player -= damage_boss
+                boss = boss - damage
                 time.sleep(0.5)
-                if boss < 10:
-                    print 'ai batut boss-ul'
+                print 'boss-ul mai are %d viata' % boss
+                player = player - damage_boss
+                time.sleep(0.5)
+                print 'ti-a dat %d damage' % damage_boss
+                time.sleep(0.5)
+                print 'mai ai %d viata' % player
+                time.sleep(0.5)
+                if boss < 1:
+                    print 'Ai batut boss-ul'
                     time.sleep(5)
                     main2()
-                elif player <10:
-                    print 'te-o facut ma'
+                elif player <1:
+                    print 'Te-o facut ma'
                     time.sleep(5)
                     exit(0)
             elif ppwp == 2:
@@ -159,7 +233,7 @@ def dungeon1():
         time.sleep(5)
         exit(0)
     else:
-        print ('ERROR 404 : Invalid option')
+        print ('\033[91mERROR 404 : Invalid option')
 
 def search_wp():
     prompt = '> '
@@ -200,7 +274,7 @@ def search_wp():
             if fms <> 0:
                 print '\namin ca nu e +0\n'
             if fms < 5:
-                print 'fms-ul so spart trb sa gasesti minim unu +5 ca sa reziste la bosi'
+                print 'Fms-ul so spart trb sa gasesti minim unu +5 ca sa reziste la bosi'
                 print 'Ce vrei sa facem?'
                 print '1. Mergem La Boss'
                 print '2. Mai incercam o data'
@@ -210,22 +284,22 @@ def search_wp():
                     dungeon1_go()
                 elif wo == 2:
                     time.sleep(5)
-                    search_wp()
+                    try_again()
                 else:
-                    print ('ERROR 404 : Invalid option')
+                    print ('\033[91mERROR 404 : Invalid option')
             if fms >= 5:
-                print 'fms-ul e +%d destul si rezistent cat sa bata un boss' % fms
+                print 'Fms-ul e +%d destul si rezistent cat sa bata un boss' % fms
                 weapon = True
                 time.sleep(5)
                 main2()
         elif l == 2:
             main()
         else:
-            print ('ERROR 404 : Invalid option')
+            print ('\033[91mERROR 404 : Invalid option')
     elif bulan == 2:
         main()
     else:
-        print ('ERROR 404 : Invalid option')
+        print ('\033[91mERROR 404 : Invalid option')
     
 def main():
     prompt = '> '
@@ -254,6 +328,6 @@ def main():
         time.sleep(2)
         exit(0)
     else:
-        print ('ERROR 404 : Invalid option')
+        print ('\033[91mERROR 404 : Invalid option')
 
 main()
