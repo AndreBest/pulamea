@@ -30,7 +30,12 @@ for i in xrange(bar):
 sys.stdout.write("\n")
 
 def dick():
-    print 'Satana mere nu ioo'
+    dick = random.randint(1,10)
+    if dick == 5:
+        print '*easter egg*'
+        print 'Satana mere nu ioo'
+    elif dick <> 5:
+        print 'Nu e nici un easter egg aici'
 
 def dye():
     print 'Imi pare bine ca ai jucat'
